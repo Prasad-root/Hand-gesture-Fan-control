@@ -29,7 +29,7 @@ class Gesture:
         self.result_img = self.hand.process(self.rgb_frame) # Process Hand gesture Functionality in conterted Images
         if self.result_img.multi_hand_landmarks:
             for detectedHands in self.result_img.multi_hand_landmarks:
-                self.mpDrawing.draw_landmarks(frame,detectedHands, self.mpObj.HAND_CONNECTIONS)
+                self.mpDrawing.draw_landmarks(frame,detectedHands) #  self.mpObj.HAND_CONNECTIONS
         return self.result_img
 
 
@@ -47,7 +47,7 @@ class Gesture:
                 self.cordinate_array[str(id)] = [point_x,point_y]
         return self.cordinate_array
     
-    def stackTip2Base(self, image,codinates,hand_controlling_finger_pair):
+    def stackTip2Base(self, image,codinates,hand_controlling_finger_pair,makers=False):
         
         if self.result_img.multi_hand_landmarks:
             #self.collectPointCodinates() # Detect Hand Point cordinates
@@ -60,11 +60,11 @@ class Gesture:
 
                 base_cordinates_x = codinates[str(finger_pair[1])][0]
                 base_cordinates_y = codinates[str(finger_pair[1])][1]
-
-                cv2.circle(image, (tip_cordinates_x, tip_cordinates_y), 5, color, 5)
-                cv2.circle(image, (base_cordinates_x, base_cordinates_y), 5, color, 5)
-
-                cv2.line(image, (tip_cordinates_x, tip_cordinates_y), (base_cordinates_x, base_cordinates_y), color, 5)
+                
+                if makers:
+                    cv2.circle(image, (tip_cordinates_x, tip_cordinates_y), 5, color, 5)
+                    cv2.circle(image, (base_cordinates_x, base_cordinates_y), 5, color, 5)
+                    cv2.line(image, (tip_cordinates_x, tip_cordinates_y), (base_cordinates_x, base_cordinates_y), color, 5)
 
     def distance_calculate_2points(self,pair_of_points): 
         output = []       
