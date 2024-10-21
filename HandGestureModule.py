@@ -3,9 +3,20 @@ import mediapipe as mp
 from gesture import Gesture
 import time
 import serial
+from connection import conn
 
-#serial connection
-bluetooth_serial = serial.Serial('COM9', 9600) 
+
+sended_message = ""
+
+
+def sendmessages(data):
+    global sended_message
+   
+    d = data
+    if d != sended_message:
+        print(f"SENDED MESSAGE : {sended_message}  |  DATA  {data}")
+        conn(d)
+        sended_message = data
 
 width, height = 1600, 900  # Width and Height
 ptime = 0
@@ -19,7 +30,8 @@ capture.set(4, height)  # Set height for window
 hand_controlling_finger_pair = [[8, 5], [12, 9], [16, 13], [20, 17], [4, 1]]
 
 while True:
-    status, frame = capture.read()  # Read capture 
+    status, frame = capture.read()
+    frame = cv2.flip(frame,1)  # Read capture 
     gesture_Hand.handDetect(frame)  # Detect Hand
     codinates = gesture_Hand.collectPointCodinates(False)
     gesture_Hand.stackTip2Base(frame, codinates, hand_controlling_finger_pair)
@@ -61,21 +73,21 @@ while True:
         # Turn on the fan
         cv2.circle(frame, (100, 150), 30, (255, 255, 255), -1)
         cv2.putText(frame, f"T", (92, 156), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
-        bluetooth_serial.write(b'T')
+        sendmessages("T")
     elif third_finger_status:
         cv2.circle(frame, (100, 230), 30, (0, 0, 255), -1)
         cv2.putText(frame, f"3", (92, 236), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
-        bluetooth_serial.write(b'3')
+        sendmessages("3")
     elif second_finger_status:
         cv2.circle(frame, (100, 310), 30, (0, 255, 0), -1)
         cv2.putText(frame, f"2", (92, 316), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
-        bluetooth_serial.write(b'2')
+        sendmessages("2")
     elif first_finger_status:
         cv2.circle(frame, (100, 390), 30, (255, 0, 0), -1)
         cv2.putText(frame, f"1", (92, 396), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
-        bluetooth_serial.write(b'1')
+        sendmessages("1")
     else:
-        bluetooth_serial.write(b'O')  # Turn off the fan
+        sendmessages("0")
 
     cv2.imshow("Web Camera", frame)
 
