@@ -14,8 +14,10 @@ def sendmessages(data):
    
     d = data
     if d != sended_message:
-        print(f"SENDED MESSAGE : {sended_message}  |  DATA  {data}")
+        #print(f"SENDED MESSAGE : {sended_message}  |  DATA  {data}")
         conn(d)
+        cv2.putText(frame, f"send", (1100, 91), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 3)
+        cv2.arrowedLine(frame, (1200,85), (1200,95), (0,255,255), 8, tipLength=3)
         sended_message = data
 
 width, height = 1600, 900  # Width and Height
@@ -64,30 +66,35 @@ while True:
     if fourth_finger > 150:
         fourth_finger_status = True
 
-    cv2.circle(frame, (100, 150), 30, (255, 255, 255), 3)
+    cv2.circle(frame, (100, 150), 30, (255, 255, 0), 3)
     cv2.circle(frame, (100, 230), 30, (0, 0, 255), 3)
-    cv2.circle(frame, (100, 310), 30, (0, 255, 0), 3)
-    cv2.circle(frame, (100, 390), 30, (255, 0, 0), 3)
+    cv2.circle(frame, (100, 310), 30, (255, 255, 255), 3)
+    cv2.circle(frame, (100, 390), 30, (0, 255, 0), 3)
 
     if fourth_finger_status:
         # Turn on the fan
-        cv2.circle(frame, (100, 150), 30, (255, 255, 255), -1)
-        cv2.putText(frame, f"T", (92, 156), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
-        sendmessages("T")
+        cv2.circle(frame, (100, 150), 30, (255, 255, 0), -1)
+        cv2.putText(frame, f"4", (92, 156), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
+        cv2.putText(frame, f"ON", (88, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+        sendmessages("4")
     elif third_finger_status:
         cv2.circle(frame, (100, 230), 30, (0, 0, 255), -1)
-        cv2.putText(frame, f"3", (92, 236), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
+        cv2.putText(frame, f"3", (92, 236), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
+        cv2.putText(frame, f"ON", (88, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
         sendmessages("3")
     elif second_finger_status:
-        cv2.circle(frame, (100, 310), 30, (0, 255, 0), -1)
-        cv2.putText(frame, f"2", (92, 316), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
+        cv2.circle(frame, (100, 310), 30, (255, 255, 255), -1)
+        cv2.putText(frame, f"2", (92, 316), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
+        cv2.putText(frame, f"ON", (88, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
         sendmessages("2")
     elif first_finger_status:
-        cv2.circle(frame, (100, 390), 30, (255, 0, 0), -1)
-        cv2.putText(frame, f"1", (92, 396), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3)
+        cv2.circle(frame, (100, 390), 30, (0, 255, 0), -1)
+        cv2.putText(frame, f"1", (92, 396), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
+        cv2.putText(frame, f"ON", (88, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
         sendmessages("1")
     else:
         sendmessages("0")
+        cv2.putText(frame, f"OFF", (88, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
 
     cv2.imshow("Web Camera", frame)
 

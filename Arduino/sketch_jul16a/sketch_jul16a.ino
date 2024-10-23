@@ -72,7 +72,7 @@ void Speed2(){
   digitalWrite(ledPin2,HIGH);
   digitalWrite(ledPin3,LOW);
   digitalWrite(motor,HIGH);
-  analogWrite(pwm, 180);
+  analogWrite(pwm, 150);
 }
 
 void Speed3(){
@@ -80,7 +80,15 @@ void Speed3(){
   digitalWrite(ledPin2,LOW);
   digitalWrite(ledPin3,HIGH);
   digitalWrite(motor,HIGH);
-  analogWrite(pwm, 255);
+  analogWrite(pwm, 200);
+}
+
+void Speed4(){
+  digitalWrite(ledPin1,HIGH); // Set the LED pin as output
+  digitalWrite(ledPin2,HIGH);
+  digitalWrite(ledPin3,HIGH);
+  digitalWrite(motor,HIGH);
+  analogWrite(pwm, 250);
 }
 
 void FanOFF(){
@@ -118,8 +126,10 @@ void loop() {
   }else if(command=='3'){
     Serial.println("Command is 3");
     Speed3();
-  }
-  else{
+  }else if(command=='4'){
+    Serial.println("Command is 3");
+    Speed4();
+  }else{
     FanOFF();
   }
 }
