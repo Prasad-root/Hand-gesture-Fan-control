@@ -8,21 +8,15 @@ def conn(message):
 
     try:
         sock.connect((NODEMCU_IP, NODEMCU_PORT))
-        #print("Connected to NodeMCU")
-
         data_to_send = message
         sock.sendall(data_to_send.encode())
         
-        response = sock.recv(1024)  # Buffer size is 1024 bytes
+        response = sock.recv(1024)  # Buffer size is 1024 
         #print("Response from NodeMCU:", response.decode())
-
     except Exception as e:
         print("Error:", e)
 
     finally:
         sock.close()
-        #print("Connection closed.")
+        print("Connection closed.")
 
-if __name__ == "__main__":
-    while True:
-        conn("")
