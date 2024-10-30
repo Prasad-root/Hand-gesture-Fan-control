@@ -1,6 +1,6 @@
 import socket
 
-NODEMCU_IP = '192.168.43.58'
+NODEMCU_IP = '192.168.43.58' # Add the IP that use NodeMCU,it shows in Arduino Serial Monitor
 NODEMCU_PORT = 80
 
 def conn(message):
