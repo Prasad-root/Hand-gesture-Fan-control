@@ -40,4 +40,4 @@ Refer to the [hardware setup guide](link-to-hardware-setup) for detailed instruc
 
 1. **Clone this repository**:
    ```bash
-   git clone <repository-link>
+   git clone <[repository-link](https://github.com/Prasad-root/Hand-gesture-Fan-control.git)>
