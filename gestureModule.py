@@ -75,7 +75,3 @@ class Gesture:
             output.append([int(math.hypot(second_point_x-first_point_x,second_point_y-first_point_y))])
         return output
     
-
-
-if __name__ == '__main__':
-    gesture = Gesture()

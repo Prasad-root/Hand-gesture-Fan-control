@@ -1,5 +1,5 @@
 import cv2
-from gesture import Gesture
+from gestureModule import Gesture
 import time
 from connection import conn
 
